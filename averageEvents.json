@@ -1,0 +1,188 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 350,
+  "height": 500,
+  "data": {
+    "url": "https://raw.githubusercontent.com/sanjaka-wickremasinghe/FIT3179-A2/main/combined__no_title.csv"
+  },
+  "transform": [
+    {
+      "aggregate": [
+        {
+          "op": "count",
+          "as": "count"
+        }
+      ],
+      "groupby": [
+        "utcMonth",
+        "utcYear"
+      ]
+    },
+    {
+      "window": [
+        {
+          "op": "max",
+          "field": "count",
+          "as": "maxCount"
+        }
+      ],
+      "groupby": [
+        "utcMonth"
+      ],
+      "frame": [
+        null,
+        null
+      ]
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "interpolate": "monotone"
+      },
+      "encoding": {
+        "y": {
+          "field": "utcMonth",
+          "title": "Months",
+          "sort": [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec"
+          ]
+        },
+        "x": {
+          "field": "count",
+          "type": "quantitative",
+          "title": "Event Count"
+        },
+        "yOffset": {
+          "field": "utcYear"
+        },
+        "tooltip": [
+          {
+            "field": "count",
+            "title": "Event Count"
+          },
+          {
+            "field": "utcYear",
+            "title": "Year"
+          }
+        ],
+        "color": {
+          "field": "utcYear"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": {
+            "field": "utcMonth",
+            "equal": "Jun"
+          }
+        },
+        {
+          "filter": {
+            "field": "utcYear",
+            "equal": 2019
+          }
+        },
+        {
+          "calculate": "'Max (2019) = ' + datum.maxCount",
+          "as": "max_count"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dy": -8,
+        "dx": -20,
+        "color": "white",
+        "baseline": "middle"
+      },
+      "encoding": {
+        "text": {
+          "field": "max_count"
+        },
+        "y": {
+          "field": "utcMonth",
+          "type": "nominal",
+          "sort": [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec"
+          ]
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": {
+            "field": "utcMonth",
+            "equal": "May"
+          }
+        },
+        {
+          "filter": {
+            "field": "utcYear",
+            "equal": 2020
+          }
+        },
+        {
+          "calculate": "'Max (2020) = ' + datum.maxCount",
+          "as": "max_count"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dy": 8,
+        "dx": -20,
+        "baseline": "middle"
+      },
+      "encoding": {
+        "text": {
+          "field": "max_count"
+        },
+        "y": {
+          "field": "utcMonth",
+          "type": "nominal",
+          "sort": [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec"
+          ]
+        }
+      }
+    }
+  ]
+}

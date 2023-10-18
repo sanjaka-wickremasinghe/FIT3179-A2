@@ -1,0 +1,51 @@
+.centered-embossed {
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Vertically center the content */
+    background-color: #FFF5EE; /* beige background color for h1 */
+    margin: 0; /* Remove any margin to ensure it's flush with the body */
+
+    /* Circular border */
+    border-radius: 15px; /* Set border radius to 50% for a circular shape */
+    border: 3px solid #708090; /* Border width and color */
+    width: auto; /* Same as the height for a perfect circle */
+    box-sizing: border-box; /* Include border in width and height calculations */
+}
+
+body {
+    /* Add the background image */
+    background-color: #708090;
+    background-size: cover; /* Scale the image to cover the entire container */
+    background-repeat: no-repeat; /* Prevent image from repeating */
+    background-position: center; /* Center the image horizontally and vertically */
+}
+
+.container3 {
+    border: 2px solid black;
+    width: 80%;
+    height: 80%;
+    margin: 0 auto; /* Center horizontally */
+    text-align: center; /* Center contents horizontally */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center vertically */
+
+    background: #FFFFFF;
+
+}
+
+p {
+    font-size: x-large;
+}
+
+.content {
+    text-align: justify;
+}
+
+.content p {
+    text-align: left; /* Reset text alignment for paragraphs */
+}

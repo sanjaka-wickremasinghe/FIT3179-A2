@@ -1,0 +1,108 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 600,
+  "height": 400,
+  "data": {
+    "url": "https://raw.githubusercontent.com/sanjaka-wickremasinghe/FIT3179-A2/master/combined__no_title.csv"
+  },
+  "transform": [
+    {
+      "calculate": "datum.utcMonth === 'Jan' ? 1 : datum.utcMonth === 'Feb' ? 2 : datum.utcMonth === 'Mar' ? 3 : datum.utcMonth === 'Apr' ? 4 : datum.utcMonth === 'May' ? 5 : datum.utcMonth === 'Jun' ? 6 : datum.utcMonth === 'Jul' ? 7 : datum.utcMonth === 'Aug' ? 8 : datum.utcMonth === 'Sep' ? 9 : datum.utcMonth === 'Oct' ? 10 : datum.utcMonth === 'Nov' ? 11 : datum.utcMonth === 'Dec' ? 12 : datum.utcMonth",
+      "as": "utcMonth"
+    }
+  ],
+  "layer": [
+    {
+      "params": [
+        {
+          "name": "ev_type",
+          "select": {
+            "type": "interval",
+            "fields": [
+              "type"
+            ]
+          },
+          "bind": "legend"
+        }
+      ],
+      "mark": {
+        "type": "line",
+        "point": true
+      },
+      "encoding": {
+        "x": {
+          "field": "utcMonth",
+          "title": "Month",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "mag",
+          "type": "quantitative",
+          "aggregate": "average",
+          "title": "Average Magnitude",
+          "scale": {
+            "zero": false
+          }
+        },
+        "color": {
+          "field": "type",
+          "type": "nominal",
+          "title": "Event Type"
+        },
+        "opacity": {
+          "condition": {
+            "param": "ev_type",
+            "value": 1
+          },
+          "value": 0.2
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "dx": 5,
+        "dy": -5,
+        "align": "left",
+        "baseline": "middle"
+      },
+      "encoding": {
+        "x": {
+          "field": "utcMonth",
+          "title": "Month",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "mag",
+          "type": "quantitative",
+          "aggregate": "average",
+          "scale": {
+            "zero": false
+          }
+        },
+        "text": {
+          "field": "mag",
+          "type": "quantitative",
+          "aggregate": "average",
+          "format": ".3f"
+        },
+        "color": {
+          "field": "type",
+          "type": "nominal"
+        },
+        "opacity": {
+          "condition": {
+            "param": "ev_type",
+            "value": 1
+          },
+          "value": 0.2
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": "transparent"
+    }
+  }
+}

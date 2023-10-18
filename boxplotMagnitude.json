@@ -1,0 +1,53 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/sanjaka-wickremasinghe/FIT3179-A2/master/combined__no_title.csv"
+  },
+  "transform": [
+    {
+      "calculate": "substring(datum.type, 0, 4)",
+      "as": "short_type"
+    },
+    {
+      "calculate": "datum.short_type === 'chem' ? 'C_EXP' : datum.short_type === 'eart' ? 'EQ' : datum.short_type === 'expe' ? 'EXP' : datum.short_type === 'ice ' ? 'I_EXP' : datum.short_type === 'mine' ? 'M_COL' : datum.short_type === 'othe' ? 'OTH' : datum.short_type === 'quar' ? 'Q_BL' : datum.short_type === 'rock' ? 'R_BST' : datum.short_type === 'expl' ? 'EXP_' : datum.short_type === 'mini' ? 'M_EXP' : datum.short_type",
+      "as": "custom_type"
+    }
+  ],
+  "facet": {
+    "column": {
+      "field": "custom_type",
+      "header": {
+        "title": "Box Plots"
+      }
+    }
+  },
+  "spec": {
+    "width": 30,
+    "height": 300,
+    "mark": {
+      "type": "boxplot",
+      "median": {
+        "color": "red"
+      },
+      "ticks": true
+    },
+    "encoding": {
+      "y": {
+        "field": "mag",
+        "type": "quantitative",
+        "title": "Magnitude",
+        "axis": {
+          "grid": false
+        },
+        "scale": {
+          "zero": false
+        }
+      },
+      "color": {
+        "field": "type",
+        "type": "nominal",
+        "title": "Event Type"
+      }
+    }
+  }
+}

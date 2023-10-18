@@ -1,0 +1,128 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 400,
+  "height": 400,
+  "projection": {
+    "type": "orthographic",
+    "rotate": {
+      "expr": "[rot_horizontal, rot_vertical]"
+    }
+  },
+  "params": [
+    {
+      "name": "rot_horizontal",
+      "value": 0,
+      "bind": {
+        "input": "range",
+        "min": -90,
+        "max": 90,
+        "step": 1
+      }
+    },
+    {
+      "name": "rot_vertical",
+      "value": 0,
+      "bind": {
+        "input": "range",
+        "min": -90,
+        "max": 90,
+        "step": 1
+      }
+    },
+    {
+      "name": "earthquakeSize",
+      "value": 2
+    }
+  ],
+  "layer": [
+    {
+      "data": {
+        "sphere": true
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "lightcyan"
+      }
+    },
+    {
+      "data": {
+        "name": "world",
+        "url": "https://raw.githubusercontent.com/vega/datalib/master/test/data/world-110m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "lightyellow",
+        "stroke": "black"
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/sanjaka-wickremasinghe/FIT3179-A2/master/combined__no_title.csv"
+      },
+      "transform": [
+        {
+          "filter": "(rot_horizontal * -1) - 90 < datum.longitude && datum.longitude < (rot_horizontal * -1) + 90 && (rot_vertical * -1) - 90 < datum.latitude && datum.latitude < (rot_vertical * -1) + 90 && datum.mag > 3"
+        },
+        {
+          "filter": "datum.type == 'earthquake'"
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "color": "red",
+        "opacity": 0.25
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "size": {
+          "legend": null,
+          "field": "mag",
+          "type": "quantitative",
+          "scale": {
+            "type": "sqrt",
+            "domain": [
+              0,
+              100
+            ],
+            "range": [
+              0,
+              {
+                "expr": "pow(earthquakeSize, 3)"
+              }
+            ]
+          }
+        },
+        "tooltip": [
+          {
+            "field": "longitude",
+            "title": "Longitude"
+          },
+          {
+            "field": "latitude",
+            "title": "Latitude"
+          },
+          {
+            "field": "mag",
+            "type": "quantitative",
+            "title": "Magnitude"
+          },
+          {
+            "field": "type",
+            "title": "Type"
+          }
+        ]
+      }
+    }
+  ]
+}

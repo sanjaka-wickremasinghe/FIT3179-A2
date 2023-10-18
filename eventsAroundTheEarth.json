@@ -1,0 +1,140 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 400,
+  "height": 350,
+  "data": {
+    "url": "https://raw.githubusercontent.com/sanjaka-wickremasinghe/FIT3179-A2/main/combined__no_title.csv"
+  },
+  "projection": {
+    "type": "mercator"
+  },
+  "mark": {
+    "type": "point"
+  },
+  "transform": [
+    {
+      "calculate": "floor(abs(datum.latitude))",
+      "as": "latDegrees"
+    },
+    {
+      "calculate": "floor((abs(datum.latitude) - floor(abs(datum.latitude))) * 60)",
+      "as": "latMinutes"
+    },
+    {
+      "calculate": "floor(((abs(datum.latitude) - floor(abs(datum.latitude))) * 60 - floor((abs(datum.latitude) - floor(abs(datum.latitude))) * 60)) * 60)",
+      "as": "latSeconds"
+    },
+    {
+      "calculate": "datum.latitude < 0 ? 'S' : 'N'",
+      "as": "latHemisphere"
+    },
+    {
+      "calculate": "floor(abs(datum.longitude))",
+      "as": "lonDegrees"
+    },
+    {
+      "calculate": "floor((abs(datum.longitude) - floor(abs(datum.longitude))) * 60)",
+      "as": "lonMinutes"
+    },
+    {
+      "calculate": "floor(((abs(datum.longitude) - floor(abs(datum.longitude))) * 60 - floor((abs(datum.longitude) - floor(abs(datum.longitude))) * 60)) * 60)",
+      "as": "lonSeconds"
+    },
+    {
+      "calculate": "datum.longitude < 0 ? 'W' : 'E'",
+      "as": "lonHemisphere"
+    },
+    {
+      "calculate": "datum.latDegrees + 'd' + datum.latMinutes + 'm' + datum.latSeconds + 's ' + datum.latHemisphere",
+      "as": "latTooltip"
+    },
+    {
+      "calculate": "datum.lonDegrees + 'd' + datum.lonMinutes + 'm' + datum.lonSeconds + 's ' + datum.lonHemisphere",
+      "as": "lonTooltip"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "longitude",
+      "type": "quantitative",
+      "scale": {
+        "domain": [
+          -200,
+          200
+        ]
+      }
+    },
+    "y": {
+      "field": "latitude",
+      "type": "quantitative",
+      "scale": {
+        "domain": [
+          -100,
+          100
+        ]
+      }
+    },
+    "shape": {
+      "field": "type"
+    },
+    "color": {
+      "condition": {
+        "param": "event",
+        "field": "type"
+      },
+      "value": "transparent"
+    },
+    "tooltip": [
+      {
+        "field": "latTooltip",
+        "title": "latitude"
+      },
+      {
+        "field": "lonTooltip",
+        "title": "longitude"
+      },
+      {
+        "field": "mag",
+        "title": "mag"
+      },
+      {
+        "field": "type",
+        "title": "type"
+      }
+    ],
+    "size": {
+      "value": 25
+    }
+  },
+  "config": {
+    "view": {
+      "stroke": "black"
+    }
+  },
+  "params": [
+    {
+      "name": "event",
+      "select": {
+        "type": "point",
+        "fields": [
+          "type"
+        ]
+      },
+      "bind": {
+        "input": "select",
+        "options": [
+          null,
+          "chemical explosion",
+          "earthquake",
+          "explosion",
+          "ice quake",
+          "mine collapse",
+          "mining explosion",
+          "other events",
+          "quarry blast",
+          "rock burst"
+        ]
+      }
+    }
+  ]
+}

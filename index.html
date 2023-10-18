@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Assignment Submission</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.25.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.15.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.22.2"></script>
+    <script type="text/javascript">
+        const boxplotMagnitude = 'https://raw.githubusercontent.com/sanjaka-wickremasinghe/FIT3179-A2/master/boxplotMagnitude.json';
+        vegaEmbed('#vis1', boxplotMagnitude);
+    </script>
+    <script type="text/javascript">
+        const yearlyAvgMag = 'https://raw.githubusercontent.com/sanjaka-wickremasinghe/FIT3179-A2/master/yearlyAvgMag.json';
+        vegaEmbed('#vis2', yearlyAvgMag);
+    </script>
+    <script type="text/javascript">
+        const EQs_around_the_Earth = 'https://raw.githubusercontent.com/sanjaka-wickremasinghe/FIT3179-A2/master/EQs_around_the_Earth.json';
+        vegaEmbed('#vis3', EQs_around_the_Earth);
+    </script>
+    <script type="text/javascript">
+        const otherEv_around_the_Earth = 'https://raw.githubusercontent.com/sanjaka-wickremasinghe/FIT3179-A2/master/otherEv_around_the_Earth.json';
+        vegaEmbed('#vis4', otherEv_around_the_Earth);
+    </script>
+</head>
+<body style="font-family: 'Helvetica', sans-serif">
+<h1 class="centered-embossed" style="height: 100px">Earth shaking events around the globe</h1>
+<br>
+<div class="container3" style="border-radius: 15px">
+    <p style="text-align: justify; margin: 10px">
+        Earthquakes are a result of <b>tectonic plate shifting</b> under the surface of the earth. These plates, when
+        moved, drag the part of crust around and if two plate scrape one another they produce powerful
+        vibrations that can cause <b style="color: red">mass destruction</b>. These deadly vibrations are not
+        only limited to the nature's wrath of tectonic shifting only, sometimes even rocks some man-made events can also
+        cause major destruction. However, these events are quite tame when compared to EQ events.
+    </p>
+    <p style="text-align: justify; margin: 10px">
+        This visualization aims to show the <b>intensity of the EQ events</b> against some other earth-shaking events,
+        both <span style="color: green">natural</span> and <span style="color: magenta"> man-made</span>. We
+        first take a look at all the events detected globally corresponding to the earth-shaking categories as follows,
+    </p>
+</div>
+<br>
+<div class="container3" style="border-radius: 15px">
+    <div class="content">
+        <br>
+        <h2 class="centered-embossed" style="height: 50px; margin: 10px">EarthQuakes around the globe</h2>
+        <br>
+        <div style="width: 35%; display: flex; float: left">
+            <p style="text-align: justify; margin: 10px">
+                We have the events plotted over a globe according to the provided <b>latitude</b>
+                and <b>longitude</b> values. In this visualization, the <a
+                    href="https://raw.githubusercontent.com/vega/datalib/master/test/data/world-110m.json">world-110m</a>
+                map is used as the basemap, and the events are laid out over it. The visualization can be <i>rotated</i>
+                to view the events at different positions on the globe.
+                <br><br>
+                On one hand, we have the events plotted where the event type is <b>anything but earthquake</b> and on
+                the
+                second depiction, we plot the event types that are of <b>earthquake</b> type. It is quite visible from
+                the comparison that majority of the events recorded are of earthquake. Due to lesser number of events,
+                the marker size for `other` event types has been increased.
+            </p>
+        </div>
+        <div id="vis3" style="align-items: flex-start; align-content: flex-start; width: 30%; float: right"></div>
+        <div id="vis4" style="align-items: flex-end; align-content: flex-end; width: 30%; float: right"></div>
+    </div>
+    <br>
+</div>
+<br>
+<div class="container3" style="border-radius: 15px">
+    <div class="content">
+        <br>
+        <h2 class="centered-embossed" style="height: 50px; margin: 10px">Magnitude comparison</h2>
+        <br>
+        <div style="width: 45%; display: flex; float:left;">
+            <p style="text-align: justify; margin: 10px">
+                Now that we know the frequency and trend of occurrences of the events in the data set, we can look at
+                the <b>extent of magnitudes</b> of different event types, their mean value, and the outliers if any that
+                exist for that specific category. From the box plots, we can see that the most outliers are in the
+                <span style="color: orange; font-weight: bold">earthquake</span> category, no surprises here. We also
+                observe that almost all the events have a mean <b>magnitude < 2</b>, except for both mining categories.
+                <br><br>
+                This visualization shows the power of the earthquake type events. Even though other natural events do
+                exist that can cause destruction, but non comes close to the magnitude outliers of the earthquake type
+                events.
+            </p>
+        </div>
+        <div id="vis1" style="align-items: flex-end; align-content: flex-end; width: 50%; float: right"></div>
+    </div>
+    <br>
+</div>
+<br>
+<div class="container3" style="border-radius: 15px">
+    <br>
+    <div class="content">
+        <br>
+        <h2 class="centered-embossed" style="height: 50px; margin: 10px">Average event magnitudes</h2>
+        <br>
+        <div style="width: 35%; display: flex; float: left">
+            <p style="text-align: justify; margin: 10px">
+                Finally, now we can try to visualize the <b>average</b> magnitude for the events. With the averaging
+                included, the outliers now do not pose an issue for plotting axes.
+                <br><br>
+                The focus is on <b>monthly comparison</b> of average magnitude over the year between <b>2019</b> and <b>2020</b>.
+                In accordance with the boxplot, we see that the <span style="color: orange; font-weight: bold">earthquake</span>
+                category has a mean value around 2. This tells us that even though the earthquake events have outlier
+                magnitude values, but they're so <b>frequent</b> in lower magnitude that those values take over the mean
+                of the ensemble.
+                <br><br>
+                This visualization provides an interactive legend which can be used to separate out the event type and
+                their average monthly magnitude when selected.
+            </p>
+        </div>
+        <div id="vis2" style="align-self: flex-end; align-items: flex-end; width: 60%; float: right"></div>
+    </div>
+</div>
+</body>
+</html>
